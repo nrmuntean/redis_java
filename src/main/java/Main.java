@@ -6,32 +6,33 @@ import java.net.Socket;
 
 public class Main {
   public static void main(String[] args) {
+        ServerSocket serverSocket = null;
+        Socket clientSocket = null;
+
         int port = 6379;
-        System.out.println("Logs from your program will appear here!");
 
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
+        try {
+            serverSocket = new ServerSocket(port);
             serverSocket.setReuseAddress(true);
-            try (Socket clientSocket = serverSocket.accept()) {
-                System.out.println("Server is running and has accepted a connection on port " + port + "!");
 
-                InputStream inputStream = clientSocket.getInputStream();
-                OutputStream outputStream = clientSocket.getOutputStream();
+            System.out.println("Server is running and waiting for a connection on port " + port + "...");
+            clientSocket = serverSocket.accept();
 
-                byte[] message = inputStream.readAllBytes();
-                String messageStr = new String(message);
-                
-                System.out.println(messageStr);
 
-                System.out.println("Received EOF from client.");
-                outputStream.write("+PONG\r\n".getBytes());
-                clientSocket.close();
-            } catch (IOException e) {
-                System.out.println("IOException: " + e.getMessage());
-            }
-            
-            serverSocket.close();
-      } catch (IOException e) {
-          System.out.println("IOException: " + e.getMessage());
-      }
+            InputStream inputStream = clientSocket.getInputStream();
+            System.out.println("Connection accepted from " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
+
+            byte[] message = inputStream.readAllBytes();
+            String messageStr = new String(message);
+
+            System.out.println(messageStr);
+
+            OutputStream outputStream = clientSocket.getOutputStream();
+            outputStream.write("+PONG\r\n".getBytes());
+            System.out.println("Sent response to client: +PONG");
+
+        } catch (IOException e) {
+            System.out.println("IOException: " + e.getMessage());
+        }
   }
 }
