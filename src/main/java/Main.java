@@ -24,10 +24,12 @@ public class Main {
 
                 System.out.println("Received EOF from client.");
                 outputStream.write("+PONG\r\n".getBytes());
-
-              clientSocket.close();
-              serverSocket.close();
-          }
+                clientSocket.close();
+            } catch (IOException e) {
+                System.out.println("IOException: " + e.getMessage());
+            }
+            
+            serverSocket.close();
       } catch (IOException e) {
           System.out.println("IOException: " + e.getMessage());
       }
