@@ -22,12 +22,8 @@ public class Main {
                 
                 System.out.println(messageStr);
 
-                if (messageStr.equals("PING")) {
-                    System.out.println("Received EOF from client.");
-                    outputStream.write("+PONG\r\n".getBytes());
-                } else {
-                    System.out.println("Received message: " + message);
-                }
+                System.out.println("Received EOF from client.");
+                outputStream.write("+PONG\r\n".getBytes());
 
               clientSocket.close();
               serverSocket.close();
