@@ -18,21 +18,28 @@ public class Main {
             System.out.println("Server is running and waiting for a connection on port " + port + "...");
             clientSocket = serverSocket.accept();
 
-
             InputStream inputStream = clientSocket.getInputStream();
             System.out.println("Connection accepted from " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
 
-            byte[] message = inputStream.readAllBytes();
-            String messageStr = new String(message);
+            // byte[] message = inputStream.readAllBytes();
+            // String messageStr = new String(message);
 
-            System.out.println(messageStr);
+            // System.out.println(messageStr);
 
             OutputStream outputStream = clientSocket.getOutputStream();
             outputStream.write("+PONG\r\n".getBytes());
             System.out.println("Sent response to client: +PONG");
-
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
+        } finally {
+            try {
+                if (clientSocket != null) {
+                    clientSocket.close();
+                    System.out.println("Client socket closed.");
+                } 
+            } catch (IOException e) {
+                System.out.println("Error closing client socket: " + e.getMessage());
+            }
         }
   }
 }
