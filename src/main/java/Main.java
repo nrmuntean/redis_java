@@ -21,14 +21,20 @@ public class Main {
             InputStream inputStream = clientSocket.getInputStream();
             System.out.println("Connection accepted from " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
 
-            // byte[] message = inputStream.readAllBytes();
-            // String messageStr = new String(message);
-
-            // System.out.println(messageStr);
-
             OutputStream outputStream = clientSocket.getOutputStream();
-            outputStream.write("+PONG\r\n".getBytes());
-            System.out.println("Sent response to client: +PONG");
+            // outputStream.write("+PONG\r\n".getBytes());
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                String message = new String(buffer);
+                if (!message.isEmpty()) {
+                    System.out.println("Received message: " + message);
+                    outputStream.write("+PONG\r\n".getBytes());
+                    System.out.println("Sent response to client: +PONG");
+                }
+            }
+
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
         } finally {
