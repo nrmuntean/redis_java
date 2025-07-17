@@ -69,6 +69,9 @@ public class Main {
             System.out.println("Sent response to client: +PONG");
             break;
         }
+        else {
+            break;
+        }
     }
   }
 }
