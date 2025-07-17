@@ -61,8 +61,7 @@ public class Main {
 
     while ((bytesRead = inputStream.read(buffer)) != -1) {
         // Convert only the valid portion of the buffer to a string
-        String message = new String(buffer);
-        System.out.println("Received message: " + message);
+        String message = new String(buffer, 0, bytesRead);
         if (
                 !message.isEmpty() 
                 && message.equals("*1\r\n$4\r\nPING\r\n")
