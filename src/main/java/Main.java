@@ -69,12 +69,10 @@ public class Main {
             System.out.println("Received message: " + message);
             outputStream.write("+PONG\r\n".getBytes());
             System.out.println("Sent response to client: +PONG");
-            break;
         }
         else {
             System.out.println("Unexpected message received.");
             System.out.println("Received message: " + message);
-            break;
         }
     }
   }
