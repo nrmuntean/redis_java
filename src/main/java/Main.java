@@ -63,9 +63,9 @@ public class Main {
         // Convert only the valid portion of the buffer to a string
         String message = new String(buffer, 0, bytesRead).trim();
         System.out.println("Received message: " + message);
-        if (!message.isEmpty() && message.equals("*1\\r\\n" + //
-                        "$4\\r\\n" + //
-                        "PING\\r\\n" + //
+        if (!message.isEmpty() && message.equals("*1\r\n" + //
+                        "$4\r\n" + //
+                        "PING\r\n" + //
                         "")) {
             System.out.println("Received message: " + message);
             outputStream.write("+PONG\r\n".getBytes());
