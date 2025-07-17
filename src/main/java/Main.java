@@ -73,6 +73,8 @@ public class Main {
             break;
         }
         else {
+            System.out.println("Unexpected message received.");
+            System.out.println("Received message: " + message);
             break;
         }
     }
