@@ -61,12 +61,12 @@ public class Main {
 
     while ((bytesRead = inputStream.read(buffer)) != -1) {
         // Convert only the valid portion of the buffer to a string
-        String message = new String(buffer, 0, bytesRead).trim();
+        String message = new String(buffer);
         System.out.println("Received message: " + message);
-        if (!message.isEmpty() && message.equals("*1\r\n" + //
-                        "$4\r\n" + //
-                        "PING\r\n" + //
-                        "")) {
+        if (
+                !message.isEmpty() 
+                && message.equals("*1\r\n$4\r\nPING\r\n")
+            ) {
             System.out.println("Received message: " + message);
             outputStream.write("+PONG\r\n".getBytes());
             System.out.println("Sent response to client: +PONG");
